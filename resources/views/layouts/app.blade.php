@@ -95,6 +95,8 @@
                     <span>Products</span>
                   </a>
                 </li>
+                @endcan
+                @can('customers.view')
                 <li class="sidebar__item">
                   <a class="sidebar__button {{ request()->routeIs('customers') ? 'active' : '' }}" href="{{ route('customers') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
@@ -102,11 +104,12 @@
                       <ellipse cx="16" cy="17" fill="currentColor" opacity=".4" rx="5" ry="3"/>
                       <circle cx="9.001" cy="6" r="4" fill="currentColor"/>
                       <ellipse cx="9.001" cy="17.001" fill="currentColor" rx="7" ry="4"/>
-                    </svg>
-                    <span>Customers</span>
-                  </a>
-                </li>
-              </ul>
+                     </svg>
+                     <span>Customers</span>
+                   </a>
+                 </li>
+                 @endcan
+               </ul>
             </div>
 
             {{-- Insights Section --}}
