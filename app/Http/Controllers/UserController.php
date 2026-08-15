@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index(UserDataTable $dataTable)
     {
-        return $dataTable->render('pages.users.index');
+        return $dataTable->handle();
     }
 
     public function store(Request $request): JsonResponse
