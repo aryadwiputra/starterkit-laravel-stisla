@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UserDataTable;
 use App\Models\User;
+use App\Services\DataTableService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +12,17 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index(UserDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->handle();
+        return view('pages.users.index');
+    }
+
+    public function data()
+    {
+        $query = User::query()->with('roles');
+
+        return (new DataTableService($query))
+            ->make();
     }
 
     public function store(Request $request): JsonResponse
@@ -45,7 +53,7 @@ class UserController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'roles' => $user->getRoleNames(),
-            'all_roles' => Role::all()->map(fn($role) => $role->name),
+            'all_roles' => Role::all()->map(fn ($role) => $role->name),
         ]);
     }
 
@@ -53,7 +61,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'roles' => ['required', 'array', 'min:1'],
             'roles.*' => ['exists:roles,name'],
@@ -64,7 +72,7 @@ class UserController extends Controller
             'email' => $validated['email'],
         ]);
 
-        if (!empty($validated['password'])) {
+        if (! empty($validated['password'])) {
             $user->update(['password' => bcrypt($validated['password'])]);
         }
 
