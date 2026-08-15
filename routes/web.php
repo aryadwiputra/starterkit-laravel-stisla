@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', fn () => view('pages.settings'))->name('settings');
     Route::get('/blank', fn () => view('pages.blank'))->name('blank');
 
-    Route::post('/logout', [Fortify::class, 'logout'])->name('logout')->withoutMiddleware('auth');
 });
 
 Route::get('/403', fn () => view('pages.errors.403'))->name('error.403');
