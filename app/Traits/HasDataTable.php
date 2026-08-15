@@ -71,9 +71,4 @@ trait HasDataTable
 
         return $roles->map(fn ($role) => '<span class="badge badge--soft badge--primary">'.e($role).'</span>')->implode(' ');
     }
-
-    public function getKeyName(): string
-    {
-        return $this->getKeyName();
-    }
 }
