@@ -1,42 +1,13 @@
 @extends('layouts.auth')
 @section('content')
-@if ($errors->any())
-  @foreach ($errors->all() as $error)
-  <div class="toast toast--danger" role="alert">
-    <div class="toast__icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M15 9l-6 6M9 9l6 6"/>
-      </svg>
-    </div>
-    <div class="toast__content">
-      <div class="toast__body">{{ $error }}</div>
-    </div>
-  </div>
-  @endforeach
-@endif
-
 <div>
-  <h1 class="text-2xl">Create account</h1>
-  <p class="text-muted-foreground mt-1">Start managing your store today.</p>
+  <h1 class="text-2xl">Reset password</h1>
+  <p class="text-muted-foreground mt-1">Enter your new password below.</p>
 </div>
 
-<form class="flex flex-col gap-4" action="{{ route('register') }}" method="POST">
+<form class="flex flex-col gap-4" action="{{ route('password.update') }}" method="POST">
   @csrf
-  <div class="field">
-    <label for="name" class="field__label">Full name</label>
-    <div class="input-group input-group--lg">
-      <span class="input-group__text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="6" r="4"/>
-            <path d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5Z"/>
-          </g>
-        </svg>
-      </span>
-      <input type="text" class="input" id="name" name="name" placeholder="Steven Gerrard" autocomplete="name" required/>
-    </div>
-  </div>
+  <input type="hidden" name="token" value="{{ $token }}"/>
 
   <div class="field">
     <label for="email" class="field__label">Email</label>
@@ -49,12 +20,12 @@
           </g>
         </svg>
       </span>
-      <input type="email" class="input" id="email" name="email" placeholder="you@meridian.com" autocomplete="email" required/>
+      <input type="email" class="input" id="email" name="email" value="{{ old('email', request()->email) }}" placeholder="you@meridian.com" autocomplete="email" required/>
     </div>
   </div>
 
   <div class="field">
-    <label for="password" class="field__label">Password</label>
+    <label for="password" class="field__label">New Password</label>
     <div class="input-group input-group--lg">
       <span class="input-group__text">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
@@ -70,7 +41,7 @@
   </div>
 
   <div class="field">
-    <label for="password_confirmation" class="field__label">Confirm Password</label>
+    <label for="password_confirmation" class="field__label">Confirm New Password</label>
     <div class="input-group input-group--lg">
       <span class="input-group__text">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
@@ -85,13 +56,8 @@
     </div>
   </div>
 
-  <div class="field__item">
-    <input class="checkbox" type="checkbox" id="terms" name="terms" required/>
-    <label class="field__label" for="terms">I agree to the <a href="#" class="link">Terms of Service</a></label>
-  </div>
-
   <button type="submit" class="button button--primary button--block button--lg">
-    Create account
+    Reset password
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/>
     </svg>
@@ -99,6 +65,6 @@
 </form>
 
 <p class="text-center text-sm text-muted-foreground">
-  Already have an account? <a href="{{ route('login') }}" class="link">Sign in</a>
+  Remember your password? <a href="{{ route('login') }}" class="link">Sign in</a>
 </p>
 @endsection

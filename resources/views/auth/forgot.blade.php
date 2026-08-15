@@ -1,5 +1,19 @@
 @extends('layouts.auth')
 @section('content')
+@if (session('status'))
+  <div class="toast toast--success" role="alert">
+    <div class="toast__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+    </div>
+    <div class="toast__content">
+      <div class="toast__body">{{ session('status') }}</div>
+    </div>
+  </div>
+@endif
+
 <div>
   <h1 class="text-2xl">Forgot password?</h1>
   <p class="text-muted-foreground mt-1">No worries, we'll send you reset instructions.</p>
