@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\DataTableAbstract;
 
-class UserDataTable extends DataTable
+class UserDataTable extends DataTableAbstract
 {
     public function ajax()
     {
